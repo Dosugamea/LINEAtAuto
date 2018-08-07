@@ -6,8 +6,14 @@
 # Requirments
 - linepy for LINE@
 - CMSToken
-# How to get CMSToken
+- udidHash
+# How to get CMSToken and udidHash
 ## iOS
+You need jailbroken iOS device  
+- cmsToken  
 hook LEGYRequestResponseHandler, then cmstoken in header
+
+- udidHash  
+I forgot
 ## Android
 idk
