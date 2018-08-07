@@ -1,4 +1,4 @@
-# LINE-Auto
+# LINEAtAuto
 # Overview
 1. Create LINE@ account automatically.
 2. Do some line thrift request.
