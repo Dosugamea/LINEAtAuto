@@ -3,7 +3,7 @@
 1. Create LINE@ account automatically.
 2. Do some line thrift request.
 3. Delete LINE@ account.
-# Requirments
+# Requirements
 - linepy for LINE@
 - CMSToken
 - udidHash
@@ -14,6 +14,6 @@ You need jailbroken iOS device
 hook LEGYRequestResponseHandler, then cmstoken in header
 
 - udidHash  
-I forgot
+I forgot. But it is okay random strings.
 ## Android
 idk
