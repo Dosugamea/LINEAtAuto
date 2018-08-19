@@ -28,13 +28,13 @@ for z in range(count):
     name = base_name + random_str
     header.update({'X-CMSToken': CMSToken})
 
-    # phase1
+    # phase1 requestRegisterToken
     header.update({'X-LHM': 'GET'})
     endpoint = '/plc/api/core/account/prepare'
     res = requests.post(host + endpoint, headers=header)
     registerToken = res.json()['registerToken']
 
-    # phase2
+    # phase2 registerAccount
     endpoint = '/plc/api/core/account/register'
     header.update({'X-LHM': 'POST'})
     payload = {"registerToken": registerToken, "majorCategory": 117, "minorCategory": 1153, "ageVerified": False,
@@ -44,17 +44,19 @@ for z in range(count):
     res = requests.post(host + endpoint, data=json.dumps(payload), headers=header)
     accessToken = res.json()['accessToken']
     mid = res.json()['mid']
-    line = LINE(idOrAuthToken=accessToken, userAgent='@')
+    
+    # phase 2.5 uploadProfilePicture
+    line = LINE(idOrAuthToken=accessToken, userAgent=LA)
     path = os.path.dirname(os.path.abspath(__file__)) + '/kizunaai.jpg'
     line.updateProfilePicture(path=path)
 
-    # phase3
+    # phase3 requestUnregisterToken
     endpoint = '/plc/api/core/auth/atCC/1418234097'
     payload = {"botMid": mid}
     res = requests.post(host + endpoint, data=json.dumps(payload), headers=header)
     atcc = res.json()['at_cc']
 
-    # phase4
+    # phase4 unregisterAccount
     header = {
         'Accept': "application/json",
         "Accept-Language": "ja-KR",
@@ -65,8 +67,6 @@ for z in range(count):
         'X-ATCC': atcc
     }
     endpoint = '/plc/api/core/account/resign'
-
     random_str = randstr(40)
     payload = {"resignToken": random_str.upper()}
-
     res = requests.post(host + endpoint, data=json.dumps(payload), headers=header)
